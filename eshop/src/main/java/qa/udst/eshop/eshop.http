@@ -1,0 +1,111 @@
+# E-SHOP API TEST CLIENT
+# Base URL
+@base = http://localhost:8080
+@api = {{base}}/api
+
+# Resources
+@products      = {{api}}/products
+@cart          = {{api}}/cart
+@wishlist      = {{api}}/wishlist
+@payment       = {{api}}/payment-options
+@categories    = {{api}}/categories
+
+# ==============================================
+### 1. GET all products (with pagination)
+GET {{products}}
+Accept: application/json
+
+### 1b. Search by name
+GET {{products}}?name=pro
+
+### 1c. Filter by category (ID = 1 → Electronics)
+GET {{products}}?categoryId=1
+
+### 1d. Get single product by ID
+GET {{products}}/1
+
+# ==============================================
+### 2. POST DIGITAL product
+POST {{products}}
+Content-Type: application/json
+
+{
+  "name": "E-Book: Clean Architecture",
+  "description": "Digital PDF, 300 pages",
+  "price": 19.90,
+  "stock": 999,
+  "imageUrl": "https://example.com/clean-arch.jpg",
+  "category": {
+    "name": "Books"
+  }
+}
+
+### 2b. POST PHYSICAL product
+POST {{products}}
+Content-Type: application/json
+
+{
+  "name": "Mechanical Keyboard",
+  "description": "RGB, Cherry MX Red, 87 keys",
+  "price": 129.00,
+  "stock": 50,
+  "imageUrl": "https://example.com/keyboard.jpg",
+  "category": {
+    "name": "Electronics"
+  }
+}
+
+# ==============================================
+### 3. UPDATE product #1 (change price)
+PUT {{products}}/1
+Content-Type: application/json
+
+{
+  "name": "E-Book: Clean Architecture - 2nd Ed.",
+  "description": "Updated edition with new chapters",
+  "price": 24.90,
+  "stock": 999,
+  "imageUrl": "https://example.com/clean-arch-v2.jpg",
+  "category": {
+    "name": "Books"
+  }
+}
+
+# ==============================================
+### 4. DELETE product #1
+DELETE {{products}}/1
+
+# ==============================================
+### 5. CART MANAGEMENT
+### Add to cart (productId=1, qty=2)
+POST {{cart}}/1?quantity=2
+
+### View cart
+GET {{cart}}
+
+### Remove item from cart (use item ID from response)
+DELETE {{cart}}/1
+
+### Clear entire cart
+DELETE {{cart}}/clear
+
+# ==============================================
+### 6. WISHLIST
+### Add to wishlist
+POST {{wishlist}}/1
+
+### View wishlist
+GET {{wishlist}}
+
+### Remove from wishlist
+DELETE {{wishlist}}/1
+
+# ==============================================
+### 7. PAYMENT OPTIONS
+### Get all payment methods
+GET {{payment}}
+
+# ==============================================
+### 8. CATEGORIES (for filtering)
+### Get all categories
+GET {{categories}}

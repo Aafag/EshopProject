@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EshopApplication<eshop>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "qa.udst.eshop.EshopApplication",
+            "projectName": "eshop",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

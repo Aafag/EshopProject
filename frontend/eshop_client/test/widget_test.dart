@@ -13,7 +13,8 @@ import 'package:eshop_client/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    // The app class is `EshopApp` in `lib/main.dart` so use that here.
+    await tester.pumpWidget(const EshopApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

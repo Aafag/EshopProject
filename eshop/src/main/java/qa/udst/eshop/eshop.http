@@ -92,7 +92,7 @@ DELETE {{cart}}/clear
 # ==============================================
 ### 6. WISHLIST
 ### Add to wishlist
-POST {{wishlist}}/1
+POST {{wishlist}}/2
 
 ### View wishlist
 GET {{wishlist}}

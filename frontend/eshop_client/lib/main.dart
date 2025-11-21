@@ -1,3 +1,5 @@
+import 'package:eshop_client/providers/wishlist_provider.dart';
+import 'package:eshop_client/utils/navigator_key.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/catalog_provider.dart';
@@ -16,8 +18,10 @@ class EshopApp extends StatelessWidget {
       providers: [
         // CatalogProvider will fetch products from your backend
         ChangeNotifierProvider(create: (_) => CatalogProvider()..loadProducts()),
+        ChangeNotifierProvider(create: (_) => WishlistProvider()..loadWishlist()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'E-Shop',
         theme: ThemeData(
           useMaterial3: true,

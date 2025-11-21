@@ -1,5 +1,6 @@
 package qa.udst.eshop.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import qa.udst.eshop.model.WishlistItem;
 import qa.udst.eshop.service.WishlistService;
@@ -7,6 +8,7 @@ import qa.udst.eshop.service.WishlistService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/wishlist")
 public class WishlistController {
 
@@ -29,6 +31,7 @@ public class WishlistController {
     }
 //Remove from wishlist
     @DeleteMapping("/{itemId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeFromWishlist(@PathVariable Long itemId) {
         wishlistService.removeFromWishlist(itemId);
     }

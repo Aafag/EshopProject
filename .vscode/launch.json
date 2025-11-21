@@ -10,17 +10,6 @@
             "projectName": "eshop",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
-        },
-        {
-            "name": "Flutter Chrome (Allow Private Network)",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main.dart",
-            "args": [
-                "-d",
-                "chrome",
-                "--web-browser-flag=--disable-features=BlockInsecurePrivateNetworkRequests"
-            ]
-        }
+        }       
     ]
 }

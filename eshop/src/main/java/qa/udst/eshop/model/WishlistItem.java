@@ -1,5 +1,7 @@
 package qa.udst.eshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class WishlistItem {
 
     @ManyToOne
     @JoinColumn(name = "wishlist_id")
+    @JsonIgnore
     private Wishlist wishlist;
 
     // === NEW FEATURE: WishlistItem – getters/setters ===

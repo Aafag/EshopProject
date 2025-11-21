@@ -1,3 +1,5 @@
+import 'package:eshop_client/providers/wishlist_provider.dart';
+import 'package:eshop_client/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/catalog_provider.dart';
@@ -11,7 +13,30 @@ class ProductListScreen extends StatelessWidget {
     final vm = context.watch<CatalogProvider>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Products')),
+      appBar: AppBar(
+        title: const Text('Products'),
+        actions:[
+          Consumer<WishlistProvider>(
+            builder: (context, wishlist, child) {
+              return IconButton(
+                icon: Badge(
+                  label: Text('${wishlist.itemCount}'),
+                  isLabelVisible: wishlist.itemCount > 0,
+                  child: const Icon(Icons.favorite_border),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WishlistScreen(),
+                    ),
+                  );
+                }
+              );
+            },
+          ),
+          const SizedBox(width: 8),
+        ]
+        ),
       body: vm.loading
           ? const Center(child: CircularProgressIndicator())
           : vm.error != null
@@ -34,7 +59,8 @@ class ProductListScreen extends StatelessWidget {
                           SnackBar(content: Text('${product.name} added to cart')),
                         );
                       },
-                      onAddToWishlist: () {
+                      onAddToWishlist: () async {
+                        await context.read<WishlistProvider>().addToWishlist(product.id);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('${product.name} added to wishlist')),
                         );

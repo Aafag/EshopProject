@@ -1,5 +1,6 @@
 {
     "configurations": [
+        
         {
             "type": "java",
             "name": "Spring Boot-EshopApplication<eshop>",
@@ -9,6 +10,6 @@
             "projectName": "eshop",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
-        }
+        }       
     ]
 }

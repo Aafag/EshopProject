@@ -1,6 +1,9 @@
 package qa.udst.eshop.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import qa.udst.eshop.model.*;
 import qa.udst.eshop.repository.WishlistRepository;
 import qa.udst.eshop.repository.WishlistItemRepository;
@@ -49,11 +52,11 @@ public class WishlistService {
 
     //  Remove from wishlist
     public void removeFromWishlist(Long itemId) {
-        WishlistItem item = itemRepo.findById(itemId).orElse(null);
-        if (item != null) {
-            wishlist.getItems().remove(item);
-            itemRepo.delete(item);
-            wishlistRepo.save(wishlist);
+        boolean removed= wishlist.getItems().removeIf(item -> item.getId().equals(itemId));
+        if (!removed) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found in wishlist");
         }
+        wishlistRepo.save(wishlist);
+        
     }
 }

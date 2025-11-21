@@ -9,6 +9,8 @@ import qa.udst.eshop.model.Product;
 import qa.udst.eshop.service.ProductService;
 
 @RestController
+@CrossOrigin(origins = "*")
+
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;

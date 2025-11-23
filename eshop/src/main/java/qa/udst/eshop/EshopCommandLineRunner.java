@@ -54,7 +54,7 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         productRepo.save(laptop);
 
         Product tshirt = new Product();
-        tshirt.setName("Cotton T-Shirt");
+        tshirt.setName("Black Cotton T-Shirt");
         tshirt.setDescription("Black, size M, 100% cotton");
         tshirt.setPrice(new BigDecimal("19.99"));
         tshirt.setStock(100);
@@ -63,7 +63,7 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         productRepo.save(tshirt);
 
         Product ebook = new Product();
-        ebook.setName("Flutter for Beginners");
+        ebook.setName("Flutter for Beginners Book");
         ebook.setDescription("Digital eBook, PDF format");
         ebook.setPrice(new BigDecimal("9.99"));
         ebook.setStock(999);

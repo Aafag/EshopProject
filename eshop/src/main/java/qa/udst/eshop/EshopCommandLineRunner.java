@@ -11,12 +11,11 @@ import qa.udst.eshop.repository.*;
 @Component
 public class EshopCommandLineRunner implements CommandLineRunner {
 
-    //Inject repositories
+    // Inject repositories
     private final CategoryRepository categoryRepo;
     private final ProductRepository productRepo;
     private final PaymentOptionRepository paymentRepo;
 
-    
     public EshopCommandLineRunner(CategoryRepository categoryRepo, ProductRepository productRepo,
             PaymentOptionRepository paymentRepo) {
         this.categoryRepo = categoryRepo;
@@ -24,12 +23,12 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         this.paymentRepo = paymentRepo;
     }
 
-
     @Override
     public void run(String... args) throws Exception {
         System.out.println("\n E-SHOP SEED DATA STARTING ");
         System.out.println("Loading test data for demo...\n");
-// Seed Categories
+
+        // Seed Categories
         Category electronics = new Category();
         electronics.setName("Electronics");
         electronics = categoryRepo.save(electronics);
@@ -44,13 +43,13 @@ public class EshopCommandLineRunner implements CommandLineRunner {
 
         System.out.println("Categories created: Electronics, Fashion, Books");
 
-        //Seed Products 
+        // Seed Products
         Product laptop = new Product();
         laptop.setName("MacBook Pro");
         laptop.setDescription("16-inch, M2 Pro, 512GB SSD");
         laptop.setPrice(new BigDecimal("1299.00"));
         laptop.setStock(10);
-        laptop.setImageUrl("https://example.com/macbook.jpg");
+        laptop.setImageName("macbook.png"); // ✅ local asset filename
         laptop.setCategory(electronics);
         productRepo.save(laptop);
 
@@ -59,7 +58,7 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         tshirt.setDescription("Black, size M, 100% cotton");
         tshirt.setPrice(new BigDecimal("19.99"));
         tshirt.setStock(100);
-        tshirt.setImageUrl("https://example.com/tshirt.jpg");
+        tshirt.setImageName("tshirt.jpg"); // ✅ local asset filename
         tshirt.setCategory(fashion);
         productRepo.save(tshirt);
 
@@ -68,13 +67,13 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         ebook.setDescription("Digital eBook, PDF format");
         ebook.setPrice(new BigDecimal("9.99"));
         ebook.setStock(999);
-        ebook.setImageUrl("https://example.com/ebook.jpg");
+        ebook.setImageName("ebook.png"); // ✅ local asset filename
         ebook.setCategory(books);
         productRepo.save(ebook);
 
         System.out.println("Products added: MacBook Pro, T-Shirt, eBook");
 
-        //  Seed Payment Options
+        // Seed Payment Options
         PaymentOption card = new PaymentOption();
         card.setMethod(PaymentMethod.CREDIT_CARD);
         card.setDisplayName("Visa / Mastercard");

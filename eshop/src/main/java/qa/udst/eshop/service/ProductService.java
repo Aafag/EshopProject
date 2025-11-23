@@ -8,6 +8,7 @@ import qa.udst.eshop.repository.ProductRepository;
 
 @Service
 public class ProductService {
+
     private final ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
@@ -31,6 +32,7 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product) {
+        // product.getImageName() will just be a filename string (e.g., "laptop.png")
         return productRepository.save(product);
     }
 

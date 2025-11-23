@@ -10,9 +10,9 @@ import qa.udst.eshop.service.ProductService;
 
 @RestController
 @CrossOrigin(origins = "*")
-
 @RequestMapping("/api/products")
 public class ProductController {
+
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -37,6 +37,7 @@ public class ProductController {
     // ✅ Create product with validation
     @PostMapping
     public Product createProduct(@Valid @RequestBody Product product) {
+        // product.imageName should be passed from frontend (e.g., "laptop.png")
         return productService.saveProduct(product);
     }
 

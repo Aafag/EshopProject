@@ -4,7 +4,7 @@ class Product {
   final String description;
   final double price;
   final int stock;
-  final String imageUrl;
+  final String imageName; // ✅ changed from imageUrl
   final String? categoryName;
 
   Product({
@@ -13,7 +13,7 @@ class Product {
     required this.description,
     required this.price,
     required this.stock,
-    required this.imageUrl,
+    required this.imageName,
     this.categoryName,
   });
 
@@ -25,7 +25,7 @@ class Product {
       description: json['description'] ?? '',
       price: (json['price'] as num).toDouble(),
       stock: json['stock'] ?? 0,
-      imageUrl: json['imageUrl'] ?? '',
+      imageName: json['imageName'] ?? '', // ✅ updated field
       categoryName: category?['name'],
     );
   }

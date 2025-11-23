@@ -6,9 +6,10 @@ import org.springframework.data.domain.Pageable;
 import qa.udst.eshop.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    // Search by name (case-insensitive)
+
+    // ✅ Search by product name (case-insensitive)
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
-    // Filter by category
+    // ✅ Filter by category ID
     Page<Product> findByCategoryId(Long categoryId, Pageable pageable);
 }

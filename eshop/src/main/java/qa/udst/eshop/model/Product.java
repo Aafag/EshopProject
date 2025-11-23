@@ -23,12 +23,14 @@ public class Product {
     @Min(0)
     private int stock;
 
-    private String imageUrl;
+    // ✅ Instead of storing full URL, just store the filename
+    private String imageName;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
+    // --- Getters and Setters ---
     public Long getId() {
         return id;
     }
@@ -69,12 +71,12 @@ public class Product {
         this.stock = stock;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public Category getCategory() {
@@ -84,5 +86,4 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
-
 }

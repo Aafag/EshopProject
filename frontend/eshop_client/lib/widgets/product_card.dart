@@ -20,8 +20,8 @@ class ProductCard extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: Image.network(
-              product.imageUrl,
+            child: Image.asset(
+              'assets/images/${product.imageName}', // ✅ load from local assets
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) => const Icon(Icons.image),
             ),

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/wishlist_item.dart';
 
-
-//single wishlist item tile widget
+// Single wishlist item tile widget
 class WishlistItemTile extends StatelessWidget {
   final WishlistItem wishlistItem;
 
   /// Callback when the remove button is pressed
-  final VoidCallback onRemove; 
+  final VoidCallback onRemove;
 
   const WishlistItemTile({
     super.key,
@@ -21,34 +20,30 @@ class WishlistItemTile extends StatelessWidget {
     final product = wishlistItem.product;
 
     return Card(
-      // Outer spacing around the tile
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
-        // Inner spacing inside the card
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
             // Product Image
             ClipRRect(
-              borderRadius: BorderRadius.circular(8), // Rounded corners
-              child: Image.network(
-                product.imageUrl,  // Image URL from product model
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/images/${product.imageName}', // ✅ Local asset image
                 width: 80,
                 height: 80,
-                fit: BoxFit.cover, // Crop image to fill the space
-                // If image fails to load, show an icon instead
+                fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => const Icon(Icons.image, size: 80),
               ),
             ),
 
             const SizedBox(width: 16),
+
             // Product Details
             Expanded(
-              // Expands to take remaining horizontal space
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product name
                   Text(
                     product.name,
                     style: const TextStyle(
@@ -56,12 +51,9 @@ class WishlistItemTile extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis, // Trims long text
+                    overflow: TextOverflow.ellipsis,
                   ),
-
                   const SizedBox(height: 4),
-
-                  // Product price
                   Text(
                     'QAR ${product.price.toStringAsFixed(2)}',
                     style: const TextStyle(
@@ -69,8 +61,6 @@ class WishlistItemTile extends StatelessWidget {
                       color: Colors.green,
                     ),
                   ),
-
-                  // Show "Out of stock" if stock == 0
                   if (product.stock == 0)
                     const Text(
                       'Out of stock',
@@ -84,9 +74,9 @@ class WishlistItemTile extends StatelessWidget {
             IconButton(
               icon: const Icon(
                 Icons.delete_outline,
-                color: Colors.red, // Red delete icon
+                color: Colors.red,
               ),
-              onPressed: onRemove, // Calls the callback passed from parent
+              onPressed: onRemove,
             ),
           ],
         ),

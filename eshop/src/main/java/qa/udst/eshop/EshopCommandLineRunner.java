@@ -67,7 +67,7 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         ebook.setDescription("Digital eBook, PDF format");
         ebook.setPrice(new BigDecimal("9.99"));
         ebook.setStock(999);
-        ebook.setImageName("flutter.png"); // ✅ local asset filename
+        ebook.setImageName("flutter.jpg"); // ✅ local asset filename
         ebook.setCategory(books);
         productRepo.save(ebook);
 

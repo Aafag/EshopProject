@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
                 ),
                 FilledButton(
                   onPressed: onAddToCart,
-                  child: const Text('Add'),
+                  child: const Text('Add To Cart'),
                 ),
               ],
             ),

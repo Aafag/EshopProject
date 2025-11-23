@@ -49,7 +49,7 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         laptop.setDescription("16-inch, M2 Pro, 512GB SSD");
         laptop.setPrice(new BigDecimal("1299.00"));
         laptop.setStock(10);
-        laptop.setImageName("macbook.png"); // ✅ local asset filename
+        laptop.setImageName("macbook.jpg"); // ✅ local asset filename
         laptop.setCategory(electronics);
         productRepo.save(laptop);
 
@@ -67,7 +67,7 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         ebook.setDescription("Digital eBook, PDF format");
         ebook.setPrice(new BigDecimal("9.99"));
         ebook.setStock(999);
-        ebook.setImageName("ebook.png"); // ✅ local asset filename
+        ebook.setImageName("flutter.png"); // ✅ local asset filename
         ebook.setCategory(books);
         productRepo.save(ebook);
 

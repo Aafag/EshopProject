@@ -1,10 +1,11 @@
+// lib/models/product.dart
 class Product {
   final int id;
   final String name;
   final String description;
   final double price;
   final int stock;
-  final String imageName; // ✅ changed from imageUrl
+  final String imageName; // ✅ local asset filename
   final String? categoryName;
 
   Product({
@@ -20,13 +21,25 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> json) {
     final category = json['category'] as Map<String, dynamic>?;
     return Product(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
       description: json['description'] ?? '',
-      price: (json['price'] as num).toDouble(),
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
       stock: json['stock'] ?? 0,
-      imageName: json['imageName'] ?? '', // ✅ updated field
+      imageName: json['imageName'] ?? '',
       categoryName: category?['name'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'price': price,
+      'stock': stock,
+      'imageName': imageName,
+      if (categoryName != null) 'category': {'name': categoryName},
+    };
   }
 }

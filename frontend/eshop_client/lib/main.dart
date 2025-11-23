@@ -8,7 +8,6 @@ import 'screens/product_list_screen.dart';
 void main() {
   runApp(const EshopApp());
 }
-
 class EshopApp extends StatelessWidget {
   const EshopApp({super.key});
 

@@ -22,23 +22,24 @@ public class WishlistService {
     private Wishlist wishlist = new Wishlist();
 
     public WishlistService(WishlistRepository wishlistRepo,
-                           WishlistItemRepository itemRepo,
-                           ProductRepository productRepo) {
+            WishlistItemRepository itemRepo,
+            ProductRepository productRepo) {
         this.wishlistRepo = wishlistRepo;
         this.itemRepo = itemRepo;
         this.productRepo = productRepo;
         this.wishlist = wishlistRepo.save(this.wishlist); // persist once
     }
 
-    //Get current wishlist items
+    // Get current wishlist items
     public List<WishlistItem> getWishlist() {
         return wishlist.getItems();
     }
 
-    //Add product to wishlist
+    // Add product to wishlist
     public WishlistItem addToWishlist(Long productId) {
         Product product = productRepo.findById(productId).orElse(null);
-        if (product == null) return null;
+        if (product == null)
+            return null;
 
         WishlistItem item = new WishlistItem();
         item.setProduct(product);
@@ -50,13 +51,13 @@ public class WishlistService {
         return item;
     }
 
-    //  Remove from wishlist
+    // Remove from wishlist
     public void removeFromWishlist(Long itemId) {
-        boolean removed= wishlist.getItems().removeIf(item -> item.getId().equals(itemId));
+        boolean removed = wishlist.getItems().removeIf(item -> item.getId().equals(itemId));
         if (!removed) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found in wishlist");
         }
         wishlistRepo.save(wishlist);
-        
+
     }
 }

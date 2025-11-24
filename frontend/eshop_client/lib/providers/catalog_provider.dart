@@ -21,4 +21,6 @@ class CatalogProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void filterProducts(String query) {}
 }

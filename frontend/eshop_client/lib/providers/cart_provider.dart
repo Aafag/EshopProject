@@ -1,6 +1,6 @@
-// lib/providers/cart_provider.dart
 import 'package:flutter/foundation.dart';
 import '../models/cart_item.dart';
+import '../models/product.dart'; // make sure you have this
 import '../services/cart_service.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -13,6 +13,8 @@ class CartProvider extends ChangeNotifier {
   List<CartItem> get items => _items;
   bool get loading => _loading;
   String? get error => _error;
+
+  int get itemCount => _items.length;
 
   double get totalAmount =>
       _items.fold(0, (sum, item) => sum + item.lineTotal);
@@ -31,9 +33,10 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> addToCart(int productId, {int quantity = 1}) async {
+  /// Add product to cart (UI calls with Product object)
+  Future<void> addToCart(Product product, {int quantity = 1}) async {
     try {
-      await _service.addToCart(productId, quantity);
+      await _service.addToCart(product.id, quantity);
       await loadCart();
     } catch (e) {
       _error = e.toString();

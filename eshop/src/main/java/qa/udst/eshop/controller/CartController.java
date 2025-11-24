@@ -7,6 +7,8 @@ import qa.udst.eshop.service.CartService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
+
 @RequestMapping("/api/cart")
 public class CartController {
     private final CartService cartService;

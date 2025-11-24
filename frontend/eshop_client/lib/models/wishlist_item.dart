@@ -1,4 +1,5 @@
-import 'package:eshop_client/models/product.dart';
+
+import 'product.dart';
 
 class WishlistItem{
   final int id;

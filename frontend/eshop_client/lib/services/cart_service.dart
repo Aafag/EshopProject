@@ -16,7 +16,7 @@ class CartService {
   // Add product to cart
   Future<CartItem> addToCart(int productId, int quantity) async {
     final res = await http.post(
-      Uri.parse('${ApiConfig.cart}/$productId'),
+      Uri.parse('${ApiConfig.cart}/$productId?quantity=1'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({'quantity': quantity}),
     );

@@ -19,6 +19,7 @@ class CartProvider extends ChangeNotifier {
   double get totalAmount =>
       _items.fold(0, (sum, item) => sum + item.lineTotal);
 
+  //get cart from backend
   Future<void> loadCart() async {
     _loading = true;
     notifyListeners();
@@ -44,6 +45,7 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
+  // Remove item from cart and refresh
   Future<void> removeFromCart(int cartItemId) async {
     try {
       await _service.removeFromCart(cartItemId);
@@ -55,6 +57,7 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
+  // Remove all and refresh
   Future<void> clearCart() async {
     try {
       await _service.clearCart();

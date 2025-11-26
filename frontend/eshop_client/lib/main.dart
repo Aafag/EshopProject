@@ -1,4 +1,6 @@
 import 'package:eshop_client/providers/cart_provider.dart';
+import 'package:eshop_client/providers/order_provider.dart';
+import 'package:eshop_client/providers/payment_provider.dart';
 import 'package:eshop_client/providers/wishlist_provider.dart';
 import 'package:eshop_client/utils/navigator_key.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,8 @@ class EshopApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CatalogProvider()..loadProducts()),
         ChangeNotifierProvider(create: (_) => WishlistProvider()..loadWishlist()),
         ChangeNotifierProvider(create: (_) => CartProvider()..loadCart()),
-
+        ChangeNotifierProvider(create: (_) => PaymentProvider()..loadPaymentOptions()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
         
       ],
       child: MaterialApp(

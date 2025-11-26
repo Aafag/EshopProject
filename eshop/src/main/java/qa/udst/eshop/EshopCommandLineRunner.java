@@ -66,7 +66,7 @@ public class EshopCommandLineRunner implements CommandLineRunner {
         ebook.setName("Flutter for Beginners Book");
         ebook.setDescription("Digital eBook, PDF format");
         ebook.setPrice(new BigDecimal("9.99"));
-        ebook.setStock(999);
+        ebook.setStock(10);
         ebook.setImageName("flutter.jpg"); // ✅ local asset filename
         ebook.setCategory(books);
         productRepo.save(ebook);

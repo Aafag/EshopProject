@@ -32,4 +32,9 @@ public class OrderController {
     public Order updateStatus(@PathVariable Long orderId, @RequestParam OrderStatus status) {
         return orderService.updateStatus(orderId, status);
     }
+
+    @PutMapping("/{orderId}/done-payment")
+    public Order completePayment(@PathVariable Long orderId) {
+        return orderService.updateStatus(orderId, OrderStatus.COMPLETED);
+}
 }

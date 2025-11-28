@@ -8,7 +8,7 @@ class Order {
   final double totalAmount;
   final String status; // e.g., "PENDING", "SHIPPED", "DELIVERED"
   final DateTime createdAt;
-  final PaymentOption paymentOption;
+  final PaymentOption? paymentOption;
 
   Order({
     required this.id,
@@ -25,10 +25,12 @@ class Order {
       items: (json['items'] as List<dynamic>)
           .map((e) => OrderItem.fromJson(e))
           .toList(),
-      totalAmount: (json['totalAmount'] as num).toDouble(),
+      totalAmount: (json['total'] as num).toDouble(),
       status: json['status'] ?? 'PENDING',
       createdAt: DateTime.parse(json['createdAt']),
-      paymentOption: PaymentOption.fromJson(json['paymentOption']),
+      paymentOption: json['paymentOption'] != null
+          ? PaymentOption.fromJson(json['paymentOption'] as Map<String, dynamic>)
+          : null,
     );
   }
 
@@ -36,10 +38,10 @@ class Order {
     return {
       'id': id,
       'items': items.map((e) => e.toJson()).toList(),
-      'totalAmount': totalAmount,
+      'total': totalAmount,
       'status': status,
       'createdAt': createdAt.toIso8601String(),
-      'paymentOption': paymentOption.toJson(),
+      'paymentOption': paymentOption?.toJson(),
     };
   }
 }

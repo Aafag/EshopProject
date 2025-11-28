@@ -5,7 +5,7 @@ import qa.udst.eshop.model.Order;
 import qa.udst.eshop.model.OrderStatus;
 import qa.udst.eshop.service.OrderService;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -19,8 +19,9 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order placeOrder() {
-        return orderService.placeOrder();
+    public Order placeOrder(@RequestBody Map<String, Integer> body) {
+        Integer paymentOptionId = body.get("paymentOptionId");
+        return orderService.placeOrder(paymentOptionId);
     }
 
     @GetMapping

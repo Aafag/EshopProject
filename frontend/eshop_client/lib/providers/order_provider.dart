@@ -1,5 +1,8 @@
 // lib/providers/order_provider.dart
+import 'package:eshop_client/providers/cart_provider.dart';
+import 'package:eshop_client/utils/navigator_key.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 import '../models/order.dart';
 import '../services/order_service.dart';
 
@@ -30,11 +33,15 @@ class OrderProvider extends ChangeNotifier {
 
   Future<Order?> placeOrder(int paymentOptionId) async {
     try {
+      print("Placing order with payment option ID: $paymentOptionId");
       final order = await _service.placeOrder(paymentOptionId);
+      print("Order created successfully! ID: ${order.id}");
       _orders.add(order);
       notifyListeners();
       return order;
-    } catch (e) {
+    } catch (e,stackTrace) {
+      print("PLACE ORDER ERROR: $e");
+      print(stackTrace);
       _error = e.toString();
       notifyListeners();
       return null;

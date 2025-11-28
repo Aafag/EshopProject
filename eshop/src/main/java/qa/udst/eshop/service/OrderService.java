@@ -5,25 +5,27 @@ import qa.udst.eshop.model.*;
 import qa.udst.eshop.repository.CartItemRepository;
 import qa.udst.eshop.repository.OrderItemRepository;
 import qa.udst.eshop.repository.OrderRepository;
+import qa.udst.eshop.repository.ProductRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OrderService {
     private final OrderRepository orderRepo;
     private final OrderItemRepository orderItemRepo;
     private final CartItemRepository cartRepo;
+    private final ProductRepository productRepo;
 
-    public OrderService(OrderRepository orderRepo, OrderItemRepository orderItemRepo, CartItemRepository cartRepo) {
+    public OrderService(OrderRepository orderRepo, OrderItemRepository orderItemRepo, CartItemRepository cartRepo,  ProductRepository productRepo) {
         this.orderRepo = orderRepo;
         this.orderItemRepo = orderItemRepo;
         this.cartRepo = cartRepo;
+        this.productRepo = productRepo;
     }
 
-    public Order placeOrder() {
+    public Order placeOrder(Integer paymentOptionId) {
         List<CartItem> cartItems = cartRepo.findAll();
         if (cartItems.isEmpty())
             throw new IllegalStateException("Cart is empty");
@@ -32,6 +34,14 @@ public class OrderService {
         BigDecimal total = BigDecimal.ZERO;
 
         for (CartItem cartItem : cartItems) {
+            Product product = cartItem.getProduct();
+
+        // DECREASE STOCK HERE
+        if (product.getStock() < cartItem.getQuantity()) {
+            throw new IllegalStateException("Not enough stock for " + product.getName());
+        }
+        product.setStock(product.getStock() - cartItem.getQuantity());
+        productRepo.save(product);  // Save updated stock
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(cartItem.getProduct());
             orderItem.setQuantity(cartItem.getQuantity());

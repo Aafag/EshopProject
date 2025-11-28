@@ -20,6 +20,8 @@ class OrderService {
       headers: {'Content-Type': 'application/json'},
       body: json.encode({'paymentOptionId': paymentOptionId}),
     );
+    print("POST /api/orders → ${res.statusCode}"); // ← DEBUG
+    print("Response body: ${res.body}");
     if (res.statusCode != 200 && res.statusCode != 201) {
       throw Exception('Failed to place order');
     }

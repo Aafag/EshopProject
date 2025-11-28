@@ -1,5 +1,8 @@
 // lib/screens/order_success_screen.dart
+import 'package:eshop_client/providers/cart_provider.dart';
+import 'package:eshop_client/providers/catalog_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
   final int orderId;
@@ -23,7 +26,11 @@ class OrderSuccessScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+              onPressed: ()  {
+                Provider.of<CartProvider>(context, listen: false).clearCart();
+                Provider.of<CatalogProvider>(context, listen: false).loadProducts();
+                Navigator.popUntil(context, (route) => route.isFirst);
+                },
               child: const Text('Back to Home'),
             ),
           ],

@@ -3,6 +3,8 @@ package qa.udst.eshop.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class OrderItem {
 
@@ -18,6 +20,7 @@ public class OrderItem {
     private BigDecimal lineTotal;
 
     @ManyToOne
+    @JsonIgnore
     private Order order;
 
     public Long getId() {

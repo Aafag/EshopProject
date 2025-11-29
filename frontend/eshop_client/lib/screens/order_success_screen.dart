@@ -29,6 +29,7 @@ class OrderSuccessScreen extends StatelessWidget {
               onPressed: ()  {
                 Provider.of<CartProvider>(context, listen: false).clearCart();
                 Provider.of<CatalogProvider>(context, listen: false).loadProducts();
+                Provider.of<CatalogProvider>(context, listen: false).setCategoryFilter('All');
                 Navigator.popUntil(context, (route) => route.isFirst);
                 },
               child: const Text('Back to Home'),

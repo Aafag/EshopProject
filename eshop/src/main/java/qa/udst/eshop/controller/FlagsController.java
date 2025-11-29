@@ -17,7 +17,6 @@ public class FlagsController {
         flags.put("enable_paypal", FeatureFlags.isEnabled("payment-methods"));
         flags.put("ordermanagment_enabled", FeatureFlags.isEnabled("ordermanagment"));
         flags.put("search_enabled", FeatureFlags.isEnabled("find-search"));
-        flags.put("flash_sale", FeatureFlags.isEnabled("flash-sale")); // optional
         return flags;
     }
 

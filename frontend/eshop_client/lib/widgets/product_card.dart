@@ -4,13 +4,13 @@ import '../models/product.dart';
 class ProductCard extends StatelessWidget {
   final Product product;
   final VoidCallback onAddToCart;
-  final VoidCallback onAddToWishlist;
+  final VoidCallback? onAddToWishlist; // ✅ make it nullable
 
   const ProductCard({
     super.key,
     required this.product,
     required this.onAddToCart,
-    required this.onAddToWishlist,
+    this.onAddToWishlist, // ✅ not required anymore
   });
 
   @override
@@ -21,13 +21,14 @@ class ProductCard extends StatelessWidget {
         children: [
           Expanded(
             child: Image.asset(
-              'assets/images/${product.imageName}', // ✅ load from local assets
+              'assets/images/${product.imageName}',
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) => const Icon(Icons.image),
             ),
           ),
           ListTile(
-            title: Text(product.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+            title: Text(product.name,
+                maxLines: 1, overflow: TextOverflow.ellipsis),
             subtitle: Text('QAR ${product.price.toStringAsFixed(2)}'),
           ),
           Padding(
@@ -38,7 +39,7 @@ class ProductCard extends StatelessWidget {
                 const Spacer(),
                 IconButton(
                   icon: const Icon(Icons.favorite_border),
-                  onPressed: onAddToWishlist,
+                  onPressed: onAddToWishlist, // ✅ safe, can be null
                 ),
                 FilledButton(
                   onPressed: onAddToCart,

@@ -8,7 +8,7 @@ import java.util.*;
 @Service
 public class FlagService {
     private final RestTemplate rest = new RestTemplate();
-    private final String apiKey = "YOUR_ENVIRONMENT_API_KEY";
+    private final String apiKey = "JXNn4TZXYVoeEnUeWej49d";
     private final String url = "https://api.flagsmith.com/api/v1/flags/";
 
     public Map<String, Boolean> getFlagsRawByName() {

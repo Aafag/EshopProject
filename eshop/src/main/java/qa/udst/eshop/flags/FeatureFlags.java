@@ -6,7 +6,7 @@ import com.flagsmith.exceptions.FlagsmithClientError;
 import com.flagsmith.models.Flags;
 
 public final class FeatureFlags {
-    private static final String API_KEY = "YOUR_ENVIRONMENT_API_KEY";
+    private static final String API_KEY = "JXNn4TZXYVoeEnUeWej49d";
     private static final String API_URL = null;
     private static volatile FlagsmithClient client;
 

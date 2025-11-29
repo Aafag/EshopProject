@@ -18,6 +18,34 @@ class ProductListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Products'),
         actions: [
+                  Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Consumer<CatalogProvider>(
+                  builder: (context, catalog, child) {
+                    final categories = ['All', ...catalog.products
+                        .map((p) => p.categoryName ?? 'Unknown')
+                        .toSet()
+                        .toList()];
+
+                    return DropdownButton<String>(
+                      value: catalog.selectedCategory,
+                      underline: const SizedBox(), // removes underline
+                      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                      dropdownColor: Colors.indigo[800],
+                      style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                      items: categories.map((cat) {
+                        return DropdownMenuItem(
+                          value: cat,
+                          child: Text(cat),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        catalog.setCategoryFilter(value ?? 'All');
+                      },
+                    );
+                  },
+                ),
+              ),
           // Wishlist icon with badge
           Consumer<WishlistProvider>(
             builder: (context, wishlist, child) {
@@ -65,20 +93,7 @@ class ProductListScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Search bar
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: const InputDecoration(
-                hintText: 'Search products...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (query) {
-                context.read<CatalogProvider>().filterProducts(query);
-              },
-            ),
-          ),
+                
           Expanded(
             child: vm.loading
                 ? const Center(child: CircularProgressIndicator())
@@ -93,9 +108,9 @@ class ProductListScreen extends StatelessWidget {
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
                         ),
-                        itemCount: vm.products.length,
+                        itemCount: vm.filteredProducts.length,
                         itemBuilder: (_, i) {
-                          final product = vm.products[i];
+                          final product = vm.filteredProducts[i];
                           return ProductCard(
                             product: product,
                             onAddToCart: () {

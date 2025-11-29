@@ -1,6 +1,8 @@
 // lib/screens/order_processing_screen.dart
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';              // 🔹 NEW
+import '../providers/feature_flag_provider.dart';     // 🔹 NEW
 import 'order_success_screen.dart';
 
 class OrderProcessingScreen extends StatefulWidget {
@@ -49,6 +51,35 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final flags = context.watch<FeatureFlagProvider>().flags; // 🔹 read flags
+
+    // ✅ If order management is disabled, show a disabled screen
+    if (!flags.ordermanagmentEnabled) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Orders')),
+        body: const Center(
+          child: Text(
+            'Order processing is currently disabled.',
+            style: TextStyle(fontSize: 18, color: Colors.red),
+          ),
+        ),
+      );
+    }
+
+    // ✅ If payment method is disabled (example: PayPal), block it
+    if (widget.paymentMethod.toLowerCase() == 'paypal' && !flags.enablePaypal) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Payment')),
+        body: const Center(
+          child: Text(
+            'PayPal payments are currently disabled.',
+            style: TextStyle(fontSize: 18, color: Colors.red),
+          ),
+        ),
+      );
+    }
+
+    // ✅ Normal flow if flags allow
     return Scaffold(
       backgroundColor: Colors.indigo,
       body: Center(

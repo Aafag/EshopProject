@@ -5,36 +5,53 @@ import '../services/product_service.dart';
 class CatalogProvider extends ChangeNotifier {
   final _service = ProductService();
   List<Product> products = [];
+  List<Product> _filteredProducts = []; // 🔹 internal list
   bool loading = false;
   String? error;
 
-// NEW: Track selected category filter
-  String _selectedCategory = 'All';  // ← NEW: Default = show all products
-  String get selectedCategory => _selectedCategory;  // ← NEW: Getter
+  // Track selected category filter
+  String _selectedCategory = 'All';
+  String get selectedCategory => _selectedCategory;
 
+  // Track search query
+  String _searchQuery = '';
 
-  // NEW: Return filtered products based on selected category
-  List<Product> get filteredProducts {  // ← NEW: This is what UI will use
-    if (_selectedCategory == 'All') {
-      return products;
-    }
-    return products
-        .where((product) => product.categoryName == _selectedCategory)
-        .toList();
-  }  // ← NEW: End of getter
+  // Expose filtered products to UI
+  List<Product> get filteredProducts => _filteredProducts;
 
-// NEW: Called when user selects a category from dropdown
-  void setCategoryFilter(String category) {  // ← NEW: Method
+  // Called when user selects a category from dropdown
+  void setCategoryFilter(String category) {
     _selectedCategory = category;
-    notifyListeners();  // ← NEW: Instantly updates the product grid
-  }  // ← NEW: End of method
+    _applyFilters();
+    notifyListeners();
+  }
 
+  // Called when user types in search bar
+  void setSearchQuery(String query) {
+    _searchQuery = query;
+    _applyFilters();
+    notifyListeners();
+  }
+
+  // Apply both category + search filters
+  void _applyFilters() {
+    _filteredProducts = products.where((product) {
+      final matchesCategory =
+          _selectedCategory == 'All' || product.categoryName == _selectedCategory;
+      final matchesSearch = _searchQuery.isEmpty ||
+          (product.name?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false);
+      return matchesCategory && matchesSearch;
+    }).toList();
+  }
+
+  // Load products from backend
   Future<void> loadProducts() async {
     loading = true;
     error = null;
     notifyListeners();
     try {
       products = await _service.fetchProducts();
+      _applyFilters(); // 🔹 apply filters after loading
     } catch (e) {
       error = e.toString();
     } finally {
@@ -42,6 +59,4 @@ class CatalogProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  void filterProducts(String query) {}
 }
